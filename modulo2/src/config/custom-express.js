@@ -6,7 +6,9 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const cors = require('cors')
 
+const sessaoAutenticacao = require('./sessao-autenticacao')
 const routes = require('../app/routes/routes')
+const templates = require('../app/views/template')
 
 const app = express()
 
@@ -27,6 +29,15 @@ app.use(methodOverride(function (req, res) {
     }
 }))
 
+sessaoAutenticacao(app)
 routes(app)
 
-module.exports = app
+app.use(function (req, resp, next) {
+    return resp.status(404).marko(templates.base.error404);
+});
+
+app.use(function (erro, req, resp, next) {
+    return resp.status(500).marko(templates.base.error500);
+});
+
+module.exports = app;

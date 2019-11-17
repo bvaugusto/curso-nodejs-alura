@@ -1,0 +1,47 @@
+<html>
+    <head>
+       <meta charset="utf-8">
+       <link rel="stylesheet" href="/estatico/css/bootstrap.min.css">
+   </head>
+   <body>
+       <div class="container">
+            <header>
+                <h1>Cadastro de livros</h1>
+                <div if(data.errosValidacao)>
+                   <div class="alert alert-danger" for(erro in data.errosValidacao)>
+                       <span>${erro.param} - ${erro.msg}</span>
+                   </div>
+                </div>
+            </header>
+           <main>
+                <form action="/livros/form" method="post">
+                   <div if(data.livro.id)>
+                        <input class="form-control" type="hidden" id="id" name="id" value="${data.livro.id}" />
+                        <input class="form-control" type="hidden" name="_method" value="PUT">
+                   </div>
+                   <div class="form-group">
+                       <label for="titulo">Titulo:</label>
+                       <input class="form-control" type="text" id="titulo" name="titulo" value="${data.livro.titulo}" placeholder="Titulo" />
+                   </div>
+                   <div class="form-group">
+                       <label for="capa">Capa:</label>
+                       <input class="form-control" type="file" id="capa" name="capa" placeholder="imagem de capa" />
+                   </div>
+                   <div class="form-group">
+                       <label for="preco">Preço:</label>
+                       <input class="form-control" type="text" id="preco" name="preco" placeholder="150.25" value="${data.livro.preco}" />
+                   </div>
+                   <div class="form-group">
+                       <label for="descricao">Descrição:</label>
+                       <textarea class="form-control" cols="20" rows="10"  id="descricao" name="descricao" placeholder="fale sobre o livro">${data.livro.descricao}</textarea>
+                   </div>
+                   <input class="form-control" type="submit" value="Salvar"/>
+                </form>
+           </main>
+       </div>
+        <script src="/estatico/js/jquery-3.3.1.slim.min.js" />
+        <script src="/estatico/js/popper.min.js" />
+        <script src="/estatico/js/bootstrap.min.js" />
+        <script src="/estatico/js/remove-livro.js" />
+   </body>
+</html>
